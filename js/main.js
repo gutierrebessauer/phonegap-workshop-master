@@ -20,26 +20,33 @@ var app = {
 		}
 	},
 	renderHomeView: function() {
-	$.ajax({
-		url:"http://util.eti.br",
-		type:"get",
-		dataType:"html",
-		success:function(r){
-			$('body').html(r);
+		//$.ajax({
+		//	url:"http://util.eti.br",
+		//	type:"get",
+		//	dataType:"html",
+		//	success:function(r){
+		//		$('body').html(r);
+				
+		//	}
 			
-		}
-		
-	});
-		var html =
-				"<div class='header'><h1>Home 2</h1></div>" +
-				"<div class='search-view'>" +
-				"<input class='search-key'/>" +
-				"<ul class='employee-list'></ul>" +
-				"</div>"
-		$('body').html(html);
+		//});
 		$('.search-key').on('keyup', $.proxy(this.findByName, this));
 	},
+	addLocation : function(event) {
+		event.preventDefault();
+		console.log('addLocation');
+		navigator.geolocation.getCurrentPosition(
+			function(position) {
+				$('.location').html(position.coords.latitude + ',' + position.coords.longitude);
+			},
+			function() {
+				alert('Error getting location');
+			});
+		return false;
+	},
     initialize: function() {
+		
+		$(".employee-list").on('click', '.add-location-btn', this.addLocation);
 		var self = this;
 		this.store = new MemoryStore(function() {
 			self.renderHomeView();
