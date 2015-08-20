@@ -26,9 +26,7 @@ var app = {
 		//	dataType:"html",
 		//	success:function(r){
 		//		$('body').html(r);
-				
 		//	}
-			
 		//});
 		$('.search-key').on('keyup', $.proxy(this.findByName, this));
 	},
