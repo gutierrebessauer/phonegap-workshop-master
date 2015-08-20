@@ -32,10 +32,10 @@ var app = {
 	},
 	changePicture : function(event) {
 		event.preventDefault();
-		//if (!navigator.camera ) {
-		//	app.showAlert("Camera API not supported", "Error");
-		//	return;
-		//}
+		if (!navigator.camera ) {
+			app.showAlert("Camera API not supported", "Error");
+			return;
+		}
 		var options =   {   quality: 50,
 							destinationType: Camera.DestinationType.DATA_URL,
 							sourceType: 1,      // 0:Photo Library, 1=Camera, 2=Saved Photo Album
@@ -44,6 +44,7 @@ var app = {
 	 
 		navigator.camera.getPicture(
 			function(imageData) {
+				app.showAlert('taking picture ', 'Sucess');
 				$('.employee-image').attr('src', "data:image/jpeg;base64," + imageData);
 			},
 			function(message) {
